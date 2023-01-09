@@ -7,8 +7,8 @@ export function handleNewBlock(
 	console.log(block.header.hash.toString())
 	let newBlock = new Block(block.header.hash.toString())
 
-	newBlock.blockNumber = block.header.height;
-	newBlock.timestamp = block.header.timestampNanosec;
+	newBlock.blockNumber = block.header.height as i32;
+	newBlock.timestamp = block.header.timestampNanosec as i32;
 
 	let blockDetails = new BlockDetails(block.header.hash.toString())
 
@@ -16,7 +16,7 @@ export function handleNewBlock(
 	let chunkIds:i32[] = [];
 	for (let i = 0; i < block.chunks.length; i++) {
 		chunkHashes.push(block.chunks[i].chunkHash.toString())
-		chunkIds.push(block.chunks[i].shardId)
+		chunkIds.push(block.chunks[i].shardId as i32)
 	}
 	blockDetails.chunkHashes = chunkHashes
 	blockDetails.chunkIds = chunkIds
