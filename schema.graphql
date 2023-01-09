@@ -1,5 +1,12 @@
-type Account @entity {
+type Block @entity {
   id: ID!
-  signerId: String!
-  log: String
+  blockNumber: Int!
+  timestamp: Int!
+  blockDetails: BlockDetails!
+}
+
+type BlockDetails @entity {
+  id: ID!
+  chunkIds: [Int!]
+  chunkHashes: [String!]
 }

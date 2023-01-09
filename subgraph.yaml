@@ -9,12 +9,12 @@ dataSources:
     network: near-mainnet
     source:
       account: "unmarshal.near"
-      startBlock: 1
+      startBlock: 80627015
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mapping.ts
       entities:
         - Account
-      receiptHandlers:
-        - handler: handleReceipt
+      blockHandlers:
+        - handler: handleNewBlock

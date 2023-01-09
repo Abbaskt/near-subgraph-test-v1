@@ -1,34 +1,26 @@
-import { near, BigInt } from "@graphprotocol/graph-ts"
-import { ExampleEntity } from "../generated/schema"
+import {near, BigInt} from "@graphprotocol/graph-ts"
+import {Block, BlockDetails} from "../generated/schema";
 
-export function handleReceipt(
-  receiptWithOutcome: near.ReceiptWithOutcome
+export function handleNewBlock(
+	block: near.Block
 ): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(receiptWithOutcome.receipt.id.toHex())
+	console.log(block.header.hash.toString())
+	let newBlock = new Block(block.header.hash.toString())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(receiptWithOutcome.receipt.id.toHex())
+	newBlock.blockNumber = block.header.height;
+	newBlock.timestamp = block.header.timestampNanosec;
 
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
+	let blockDetails = new BlockDetails(block.header.hash.toString())
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
+	let chunkHashes:Array<string> = [];
+	let chunkIds:i32[] = [];
+	for (let i = 0; i < block.chunks.length; i++) {
+		chunkHashes.push(block.chunks[i].chunkHash.toString())
+		chunkIds.push(block.chunks[i].shardId)
+	}
+	blockDetails.chunkHashes = chunkHashes
+	blockDetails.chunkIds = chunkIds
+	blockDetails.save()
 
-  // Entity fields can be set based on receipt information
-  entity.block = receiptWithOutcome.block.header.hash
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
+	newBlock.blockDetails = blockDetails.id;
 }
