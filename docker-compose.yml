@@ -13,8 +13,8 @@ services:
       - postgres
     environment:
       postgres_host: postgres
-      postgres_user: abbas
-      postgres_pass:
+      postgres_user: postgres
+      postgres_pass: postgres
       postgres_db: graph-node
       ipfs: 'ipfs:5001'
       # Change next line if you want to connect to a different JSON-RPC endpoint
