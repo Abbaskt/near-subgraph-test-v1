@@ -1,17 +1,20 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
+description: Near test
+repository: https://github.com/Abbaskt/near-subgraph-test-v1
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: near
-    name: test
+    name: Near test
     network: near-mainnet
     source:
       account: "unmarshal.near"
+      startBlock: 1
     mapping:
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
+      file: ./src/mapping.ts
       entities:
-        - ExampleEntity
+        - Account
       receiptHandlers:
         - handler: handleReceipt
-      file: ./src/test.ts

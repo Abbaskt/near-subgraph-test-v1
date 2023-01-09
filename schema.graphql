@@ -1,5 +1,5 @@
-type ExampleEntity @entity {
+type Account @entity {
   id: ID!
-  block: Bytes!
-  count: BigInt!
+  signerId: String!
+  log: String
 }
