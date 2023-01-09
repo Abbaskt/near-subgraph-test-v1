@@ -1,7 +1,7 @@
 type Block @entity {
   id: ID!
-  blockNumber: Int!
-  timestamp: Int!
+  blockNumber: BigInt!
+  timestamp: BigInt!
   blockDetails: BlockDetails!
 }
 
