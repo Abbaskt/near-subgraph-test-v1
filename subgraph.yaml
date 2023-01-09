@@ -15,6 +15,7 @@ dataSources:
       language: wasm/assemblyscript
       file: ./src/mapping.ts
       entities:
-        - Account
+        - Block
+        - BlockDetails
       blockHandlers:
         - handler: handleNewBlock

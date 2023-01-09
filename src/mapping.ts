@@ -20,7 +20,8 @@ export function handleNewBlock(
 	}
 	blockDetails.chunkHashes = chunkHashes
 	blockDetails.chunkIds = chunkIds
-	blockDetails.save()
+	blockDetails.save();
 
 	newBlock.blockDetails = blockDetails.id;
+	newBlock.save();
 }
